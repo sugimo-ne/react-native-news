@@ -4,6 +4,7 @@ import { WebView } from 'react-native-webview';
 import { useDispatch, useSelector } from 'react-redux';
 import { addClip, deleteClip } from '../store/actions/user';
 import CullipButton from '../components/ClipButton';
+import Loading from '../components/Loading';
 
 export default ArticleScreen = ({ route }) => {
   const { article } = route.params;
@@ -26,7 +27,13 @@ export default ArticleScreen = ({ route }) => {
     <SafeAreaView style={styles.container}>
       <CullipButton onPress={toggleClip} enabled={isClipped()}></CullipButton>
 
-      <WebView source={{ uri: article.url }}></WebView>
+      <WebView
+        source={{ uri: article.url }}
+        startInLoadingState={true}
+        renderLoading={() => {
+          return <Loading />;
+        }}
+      ></WebView>
     </SafeAreaView>
   );
 };
